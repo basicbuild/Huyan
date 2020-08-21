@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/huyan">
+        <file>res/skins/stylesheet.ini</file>
+        <file>res/skins/titlebar.qss</file>
+        <file alias="image_view_icon">res/skins/titlebar/image_view_icon.png</file>
+    </qresource>
+</RCC>

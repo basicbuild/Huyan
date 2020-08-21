@@ -1,0 +1,22 @@
+
+UITitleBar QPushButton#button
+{
+	font: 14px "微软雅黑";
+	color: #333333;
+	background-color:#F4FAFF;
+	border: 1px solid #C8E3FF;
+	border-radius:2px;
+	outline: none;	
+}
+
+UITitleBar QPushButton#button:hover
+{
+    background-color:#ce3d3a;
+	color: #ffffff;
+}
+
+UITitleBar QPushButton#button:pressed
+{
+    background-color:#c62f2f;
+	color: #ffffff;
+}
