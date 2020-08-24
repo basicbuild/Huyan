@@ -1,3 +1,13 @@
+UITitleBar QLabel#logoLabel
+{
+    border-image: url(:/titlebar/logo);
+}
+
+UITitleBar QLabel#nameLabel
+{
+	font: normal normal 15px "微软雅黑";
+	color: #000000;
+}
 
 UITitleBar QPushButton#button
 {

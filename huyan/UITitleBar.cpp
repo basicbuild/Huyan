@@ -8,6 +8,9 @@ UITitleBar::UITitleBar(QWidget *parent)
 	: QWidget(parent)
 {
 	this->setAutoFillBackground(true); // 自动刷新背景
+	QPalette palette(this->palette());
+	palette.setColor(QPalette::Background, RGB(248, 196, 75));
+	this->setPalette(palette);
 	initUI();
 }
 
@@ -21,25 +24,20 @@ void UITitleBar::initUI()
 
 	QHBoxLayout* _vlayoutMain = new QHBoxLayout(this);
 
-	QPushButton* _widget = new QPushButton(this);
-	QPushButton* _widget1 = new QPushButton(this);
-	_widget1->setFixedWidth(100);
-	_widget1->setObjectName("button");
-	_widget->setObjectName("button");
+	// logo
+	QLabel* lbeLogo = new QLabel(this);
+	lbeLogo->setObjectName("logoLabel");
+	lbeLogo->setFixedSize(30, 30);
 
-	_vlayoutMain->addWidget(_widget);
+	// 名称
+	QLabel* lbeName = new QLabel(tr("Huyan"), this);
+	lbeName->setObjectName("nameLabel");
+
+
+	_vlayoutMain->addWidget(lbeLogo);
+	_vlayoutMain->addWidget(lbeName);
 	_vlayoutMain->addStretch();
-	_vlayoutMain->addWidget(_widget1);
-	_vlayoutMain->setContentsMargins(10, 10, 10, 10);
+	_vlayoutMain->setContentsMargins(10, 0, 10, 0);
 	setLayout(_vlayoutMain);
 
-
-	connect(_widget, &QPushButton::clicked, [this]() {
-		system("color 34");
-		});
-
-
-	connect(_widget1, &QPushButton::clicked, [this]() {
-		system("color 19");
-		});
 }

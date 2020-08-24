@@ -3,5 +3,17 @@
         <file>res/skins/stylesheet.ini</file>
         <file>res/skins/titlebar.qss</file>
         <file alias="image_view_icon">res/skins/titlebar/image_view_icon.png</file>
+        <file>res/skins/huyan.qss</file>
+    </qresource>
+    <qresource prefix="/titlebar">
+        <file alias="logo">res/skins/titlebar/logo.png</file>
+    </qresource>
+    <qresource prefix="/uihuyan">
+        <file alias="slider">res/skins/huyan/slider.png</file>
+        <file alias="blaze">res/skins/huyan/blaze.png</file>
+        <file alias="games">res/skins/huyan/games.png</file>
+        <file alias="night">res/skins/huyan/night.png</file>
+        <file alias="read">res/skins/huyan/read.png</file>
+        <file alias="recommend">res/skins/huyan/recommend.png</file>
     </qresource>
 </RCC>

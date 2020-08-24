@@ -2,7 +2,6 @@
 #include "UIHuyan.h"
 #include <QVBoxLayout>
 #include <QSlider>
-#include "UIToolButton.h"
 #include "CGammaRamp.h"
 #ifdef _WIN32
 #include <windows.h>
@@ -29,9 +28,11 @@ void UIHuyan::initUI()
 	QVBoxLayout* _vlayoutMain = new QVBoxLayout(this);
 	 
 	QLabel *_lbeTip = new QLabel(tr("累计保护您的眼睛：15分钟/2小时"), this);
+	_lbeTip->setObjectName("tipLabel");
 
 	// 亮度调节
 	QLabel* _lbeDimming = new QLabel(tr("亮度调节"), this);
+	_lbeDimming->setObjectName("dimmingLabel");
 	QSlider* m_sliderDimming;
 	m_sliderDimming = new QSlider(this);
 	m_sliderDimming->setObjectName("micVolumeSlider");
@@ -39,11 +40,12 @@ void UIHuyan::initUI()
 	m_sliderDimming->setMinimum(MIN_VOLUME);  // 最小值
 	m_sliderDimming->setMaximum(MAX_VOLUME);  // 最大值
 	m_sliderDimming->setSingleStep(SIGNAL_STEP);  // 步长
-	m_sliderDimming->setFixedWidth(200);
+	m_sliderDimming->setFixedWidth(620);
 	connect(m_sliderDimming, &QSlider::valueChanged, this, &UIHuyan::on_slider_bright_activated);
 
 	// 智能护眼
 	QLabel* _lbeSmarteyeprotection = new QLabel(tr("智能护眼"), this);
+	_lbeSmarteyeprotection->setObjectName("smarteyeprotectionLabel");
 	QSlider* m_sliderSmarteyeprotection;
 	m_sliderSmarteyeprotection = new QSlider(this);
 	m_sliderSmarteyeprotection->setObjectName("micVolumeSlider");
@@ -51,18 +53,30 @@ void UIHuyan::initUI()
 	m_sliderSmarteyeprotection->setMinimum(MIN_VOLUME);  // 最小值
 	m_sliderSmarteyeprotection->setMaximum(MAX_VOLUME);  // 最大值
 	m_sliderSmarteyeprotection->setSingleStep(SIGNAL_STEP);  // 步长
-	m_sliderSmarteyeprotection->setFixedWidth(200);
+	m_sliderSmarteyeprotection->setFixedWidth(620);
 
 	// 颜色调节
 	QLabel* _lbeColorAdjustment = new QLabel(tr("颜色调节"), this);
+	_lbeColorAdjustment->setObjectName("colorAdjustmentLabel");
 
 	QHBoxLayout* _hlayoutColorAdjustment = new QHBoxLayout(this);
 
-	UIToolButton* _uiToolButton1 = new UIToolButton(tr("推荐模式"), tr(":/huyan/image_view_icon"), this);
-	UIToolButton* _uiToolButton2 = new UIToolButton(tr("阅读模式"), tr(":/huyan/image_view_icon"), this);
-	UIToolButton* _uiToolButton3 = new UIToolButton(tr("强光模式"), tr(":/huyan/image_view_icon"), this);
-	UIToolButton* _uiToolButton4 = new UIToolButton(tr("黑夜模式"), tr(":/huyan/image_view_icon"), this);
-	UIToolButton* _uiToolButton5 = new UIToolButton(tr("游戏模式"), tr(":/huyan/image_view_icon"), this);
+	_uiToolButton1 = new UIToolButton(tr("推荐模式"), tr(":/uihuyan/recommend"), this);
+	_uiToolButton1->setObjectName("1toolButton");
+	_uiToolButton2 = new UIToolButton(tr("阅读模式"), tr(":/uihuyan/read"), this);
+	_uiToolButton2->setObjectName("2toolButton");
+	_uiToolButton3 = new UIToolButton(tr("强光模式"), tr(":/uihuyan/blaze"), this);
+	_uiToolButton3->setObjectName("3toolButton");
+	 _uiToolButton4 = new UIToolButton(tr("黑夜模式"), tr(":/uihuyan/night"), this);
+	_uiToolButton4->setObjectName("4toolButton");
+	_uiToolButton5 = new UIToolButton(tr("游戏模式"), tr(":/uihuyan/games"), this);
+	_uiToolButton5->setObjectName("5toolButton");
+
+	_uiToolButton1->setCheckable(true);
+	_uiToolButton2->setCheckable(true);
+	_uiToolButton3->setCheckable(true);
+	_uiToolButton4->setCheckable(true);
+	_uiToolButton5->setCheckable(true);
 
 	connect(_uiToolButton1, SIGNAL(pressed()), this, SLOT(on_mouse_press()));
 	connect(_uiToolButton2, SIGNAL(pressed()), this, SLOT(on_mouse_press()));
@@ -84,6 +98,7 @@ void UIHuyan::initUI()
 	_vlayoutMain->addWidget(_lbeColorAdjustment, 0, Qt::AlignLeft);
 	_vlayoutMain->addLayout(_hlayoutColorAdjustment);
 	
+	_vlayoutMain->setContentsMargins(75, 30, 75, 50);
 	setLayout(_vlayoutMain);
 }
 
@@ -102,11 +117,10 @@ void UIHuyan::on_slider_color_activated(int _color)
 
 void UIHuyan::on_mouse_press()
 {
+	//CGammaRamp GammaRamp;
 
-	CGammaRamp GammaRamp;
-
-	//Make the screen darker:
-	GammaRamp.SetBrightness(NULL, 0,155,34);
+	////Make the screen darker:
+	//GammaRamp.SetBrightness(NULL, 0,155,34);
 
 	//DEVMODE lpDevMode;
 	//lpDevMode.dmBitsPerPel = 24;
@@ -127,5 +141,45 @@ void UIHuyan::on_mouse_press()
 	//	ChangeDisplaySettings(NULL, 0);
 	//}
 
-
+	UIToolButton* _uiToolButton = qobject_cast<UIToolButton*>(sender());
+	if (_uiToolButton == _uiToolButton1)
+	{
+		_uiToolButton1->setChecked(true);
+		_uiToolButton2->setChecked(false);
+		_uiToolButton3->setChecked(false);
+		_uiToolButton4->setChecked(false);
+		_uiToolButton5->setChecked(false);
+	}
+	else if (_uiToolButton == _uiToolButton2)
+	{
+		_uiToolButton1->setChecked(false);
+		_uiToolButton2->setChecked(true);
+		_uiToolButton3->setChecked(false);
+		_uiToolButton4->setChecked(false);
+		_uiToolButton5->setChecked(false);
+	}
+	else if (_uiToolButton == _uiToolButton3)
+	{
+		_uiToolButton1->setChecked(false);
+		_uiToolButton2->setChecked(false);
+		_uiToolButton3->setChecked(true);
+		_uiToolButton4->setChecked(false);
+		_uiToolButton5->setChecked(false);
+	}
+	else if (_uiToolButton == _uiToolButton4)
+	{
+		_uiToolButton1->setChecked(false);
+		_uiToolButton2->setChecked(false);
+		_uiToolButton3->setChecked(false);
+		_uiToolButton4->setChecked(true);
+		_uiToolButton5->setChecked(false);
+	}
+	else if (_uiToolButton == _uiToolButton5)
+	{
+		_uiToolButton1->setChecked(false);
+		_uiToolButton2->setChecked(false);
+		_uiToolButton3->setChecked(false);
+		_uiToolButton4->setChecked(false);
+		_uiToolButton5->setChecked(true);
+	}
 }
